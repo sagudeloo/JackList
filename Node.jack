@@ -8,6 +8,7 @@ class Node {
         let data = Adata;
         let lastNode = AlastNode;
         let nextNode = AnextNode;
+        return this;
     }
 
     method void dispose(){
@@ -21,6 +22,7 @@ class Node {
 
     method void setData(int Adata) {
         let data = Adata;
+        return;
     }
 
     method Node getLast() {
@@ -29,6 +31,7 @@ class Node {
 
     method void setLast(Node AlastNode) {
         let lastNode = AlastNode;
+        return;
     }
 
     method nextNode getNext() {
@@ -37,5 +40,6 @@ class Node {
 
     method void setNext(Node AnextNode) {
         let nextNode = AnextNode;
+        return;
     }
 }
