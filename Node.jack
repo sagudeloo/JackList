@@ -12,6 +12,10 @@ class Node {
     }
 
     method void dispose(){
+        if (~(nextNode = null)){
+            do nextNode.dispose();
+        }
+
         do Memory.deAlloc(this);
         return;
     }
