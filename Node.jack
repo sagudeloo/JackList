@@ -1,0 +1,41 @@
+class Node {
+
+    field int data;              //Informacion almacenada dentro del Node
+    field Node lastNode, nextNode;  //Node anterio y siguiente en la lista
+
+    /** Contructor de un nuevo Node de la lista */
+    constructor Node new(int Adata, Node AlastNode, Node AnextNode){
+        let data = Adata;
+        let lastNode = AlastNode;
+        let nextNode = AnextNode;
+    }
+
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int getData() {
+        return data;
+    }
+
+    method void setData(int Adata) {
+        let data = Adata;
+    }
+
+    method Node getLast() {
+        return lastNode;
+    }
+
+    method void setLast(Node AlastNode) {
+        let lastNode = AlastNode;
+    }
+
+    method nextNode getNext() {
+        return nextNode;
+    }
+
+    method void setNext(Node AnextNode) {
+        let nextNode = AnextNode;
+    }
+}
