@@ -1,0 +1,72 @@
+class JackList {
+
+    field Node top, tail;           //Nodos en la cabeza y la cola de la lista
+    field Node newTail;             //Nodo auxiliar para creacion de nuevos nodos en la lista
+    field Node auxNode, auxNode2;   //Nodos auxiliares para las operaciones realizadandentro de la lista
+    field int size;                 //tamaño de la lista
+    field int i;                    //Indice auxiliar para manipular la lista
+
+    /** Contructor de una nueva lista */
+    constructor JackList new() {
+        let size = 0;
+        return this;
+    }
+
+    method void dispose() {
+        if (~(top = null)){
+            do top.dispose();
+        }
+
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    /** Añade nueva informacion a la lista*/
+    method boolean add(int data) {
+        if (top = null){
+            let top = Node.new(data, null, null);
+            let tail = top;
+            return true;
+        }
+        let newTail = Node.new(data, tail, null);
+        do tail.setNext(newTail);
+        let tail = newTail;
+        return true;
+    }
+
+    /** Returna el valor del elemento que esta en la numero index de la lista*/
+    method int get(int index) {
+        if(((index > 0) | (index = 0)) & (index < size)){
+            let auxNode = top;
+            let i = 0;
+            while (~(i = index)){
+                if (i = index){
+                    return auxNode.getData();
+                }
+                let auxNode = auxNode.getNext();
+            }
+        }
+        return null;
+    }
+
+    method boolean remove(int index) {
+        if(((index > 0) | (index = 0)) & (index < size)){
+            let auxNode = top;
+            let i = 0;
+            while (~(i = index)){
+                if (i = index){
+                    let auxNode2 = auxNode.getNext();
+                    do auxNode2.setLast(auxNode.getLast());
+                    let auxNode2 = auxNode.getLast()
+                    do auxNode2.setNext(auxNode.getNext());
+                    do auxNode.setLast(null);
+                    do auxNode.setNext(null);
+                    auxNode.dispose();
+                    return true;
+                }
+                let auxNode = auxNode.getNext();
+            }
+        }
+        return false;
+    }
+}
