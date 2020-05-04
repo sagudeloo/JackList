@@ -1,7 +1,45 @@
 class Main {
 
     function void main() {
-
+        var JackList list;
         
+        return;
+    }
+
+    /** Esta funcion se encarga de tomar el punto de pivote separar todo entre la izquierda
+      * y la derecha del pivote, para luego ejecutar el mismo procedimiento a las sublistas
+      * de la izquierda y la derecha del pivote*/
+    method void quickSort(JackList a, int low, int high) {
+        var int pi;                 //indice de particion de la lista
+        if (low < high){
+
+            let pi = partition(a, low, high); 
+
+            do quickSort(a, low, (pi-1));
+            do quickSort(a, (pi+1), high);
+        }
+        return;
+    }
+
+    method int partition(JackList a, int low, int high) {
+
+        var int pivot;              // punto de pivote
+        var int i;                  // Indice del elemento mas pequeño
+        var int j;                  // Indice del elemento actual
+
+        // Se va a selecionar como punto de pivote el punto mas a la derecha
+        let pivot = a.get(high);
+
+        let i = (low -1);
+        
+        let j = low;
+        while((j < high) | (j = high)){
+            if(a.get(j) < pivot){
+                let i = i + 1;
+                do a.swap(i,j);
+            }
+        }
+        do a.swap((i+1), high);
+        return (i+1);
     }
 }
