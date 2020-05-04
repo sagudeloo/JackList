@@ -1,10 +1,8 @@
 class JackList {
 
-    field Node top, tail;           //Nodos en la cabeza y la cola de la lista
-    field Node newTail;             //Nodo auxiliar para creacion de nuevos nodos en la lista
-    field Node auxNode, auxNode2;   //Nodos auxiliares para las operaciones realizadandentro de la lista
-    field int size;                 //tamaño de la lista
-    field int i;                    //Indice auxiliar para manipular la lista
+    field Node top, tail;                           //Nodos en la cabeza y la cola de la lista
+    field Node newTail;                             //Nodo auxiliar para creacion de nuevos nodos en la lista
+    field int size;                                 //tamaño de la lista
 
     /** Contructor de una nueva lista */
     constructor JackList new() {
@@ -31,11 +29,14 @@ class JackList {
         let newTail = Node.new(data, tail, null);
         do tail.setNext(newTail);
         let tail = newTail;
+        let size = size + 1;
         return true;
     }
 
-    /** Returna el valor del elemento que esta en la numero index de la lista*/
+    /** Retorna el valor del elemento que esta en la numero index de la lista*/
     method int get(int index) {
+        var Node auxNode;
+        var int i;
         if(((index > 0) | (index = 0)) & (index < size)){
             let auxNode = top;
             let i = 0;
@@ -44,29 +45,90 @@ class JackList {
                     return auxNode.getData();
                 }
                 let auxNode = auxNode.getNext();
+                let i = i + 1;
             }
         }
         return null;
     }
 
-    method boolean remove(int index) {
+    /** Retorna el nodo que se ecuentra en la posicion index de la lista*/
+    method Node getNode(int index) {
+        var Node auxNode;
+        var int i;
         if(((index > 0) | (index = 0)) & (index < size)){
+            let auxNode = top;
+            let i = 0;
+            while (~(i = index)){
+                if (i = index){
+                    return auxNode;
+                }
+                let auxNode = auxNode.getNext();
+                let i = i + 1;
+            }
+        }
+        return null;
+    }
+
+    /** Remueve el nodo que se encuentra en la pocision index de la lista*/
+    method boolean remove(int index) {
+        var Node auxNode, auxNode2;
+        var int i;
+        if(((index > 0) | (index = 0)) & (index < size) 6 (size > 0)){
             let auxNode = top;
             let i = 0;
             while (~(i = index)){
                 if (i = index){
                     let auxNode2 = auxNode.getNext();
                     do auxNode2.setLast(auxNode.getLast());
-                    let auxNode2 = auxNode.getLast()
+                    let auxNode2 = auxNode.getLast();
                     do auxNode2.setNext(auxNode.getNext());
                     do auxNode.setLast(null);
                     do auxNode.setNext(null);
-                    auxNode.dispose();
+                    do auxNode.dispose();
+                    let size = size - 1;
                     return true;
                 }
                 let auxNode = auxNode.getNext();
+                let i = i + 1;
             }
         }
         return false;
+    }
+
+    /** Intercambia los nodos que se encuentran almacenados en la posicion a
+      * y en la posicion b de la lista*/
+    method boolean swap(int a, int b) {
+        var Node auxNode, auxNode2, auxNode3;
+        let auxNode= getNode(a);
+        let auxNode2= getNode(b);
+        let auxNode3=auxNode.getLast();                     //se almacena el valor del anterior de a
+        do auxNode.setLast(auxNode2.getLast());             //se asigna el valor del anterior de b al nodo a
+        do auxNode2.setLast(auxNode3);                      //se asigna el valor del anterior de a al nodo b
+        let auxNode3=auxNode.getNext();                     //se almacena el valode del siguiente de a
+        do auxNode.setNext(auxNode2.getNext());             //se asigna el valor del siguiente de b al nodo a
+        do auxNode2.setNext(auxNode3);                      //se asigna el valor del siguiente de a al nodo b
+        return true;
+    }
+
+    method int size() {
+        return size;
+    }
+
+    method Array toArray() {
+        var Array auxArray;
+        var Node auxNode;
+        var int i;
+        while(size>0){
+            let auxArray = Array.new(size);
+            let i = 0;
+            let auxNode = top;
+            while(i < size){
+                let auxArray[i] = auxNode.get();
+                let i = i + 1;
+            }
+            return auxArray;
+            let auxNode = auxNode.getNext();
+        }
+        return null;
     }
 }
